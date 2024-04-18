@@ -1,0 +1,835 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <xacro:include filename="inertial_macros.xacro"/>
+
+    <material name="white">
+        <color rgba="1 1 1 1" />
+    </material>
+
+    <material name="orange">
+        <color rgba="1 0.3 0.1 1"/>
+    </material>
+
+    <material name="blue">
+        <color rgba="0.2 0.2 1 1"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+
+    <!-- BASE LINK -->
+
+    <link name="base_link">
+    </link>
+
+    <!-- BASE_FOOTPRINT LINK -->
+
+    <joint name="base_footprint_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_footprint"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="base_footprint">
+    </link>
+
+    <!-- CHASSIS LINK -->
+
+    <joint name="chassis_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="chassis"/>
+        <origin xyz="-0.1 0 0"/>
+    </joint>
+
+    <link name="chassis">
+        <visual>
+            <origin xyz="0.15 0 0.075"/>
+            <geometry>
+                <box size="0.345 0.234 0.15"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="0.15 0 0.075"/>
+            <geometry>
+                <box size="0.345 0.234 0.15"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.5" x="0.345" y="0.234" z="0.15">
+            <origin xyz="0.15 0 0.075" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+    
+    <gazebo reference="chassis">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- Left Mount Atas LINK -->
+
+    <joint name="left_mount_atas_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_mount_atas"/>
+        <origin xyz="0 0.175 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="left_mount_atas">
+        <visual>
+            <origin xyz="0.05 -0.04 0.12"/>
+            <geometry>
+                <box size="0.077 0.036 0.036"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0.05 -0.04 0.12"/>
+            <geometry>
+                <box size="0.077 0.036 0.036"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.1" x="0.077" y="0.036" z="0.036">
+            <origin xyz="0.05 -0.04 0.12" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="left_mount_atas">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <!-- Right Mount Atas LINK -->
+
+    <joint name="right_mount_atas_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_mount_atas"/>
+        <origin xyz="0 -0.175 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_mount_atas">
+        <visual>
+            <origin xyz="0.05 0.04 0.12"/>
+            <geometry>
+                <box size="0.077 0.036 0.036"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0.05 0.04 0.12"/>
+            <geometry>
+                <box size="0.077 0.036 0.036"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.1" x="0.077" y="0.036" z="0.036">
+            <origin xyz="0.05 0.04 0.12" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="right_mount_atas">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <!-- Left Suspensi 1 LINK -->
+
+    <joint name="left_suspensi_satu_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_suspensi_satu"/>
+        <origin xyz="0 0.175 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="left_suspensi_satu">
+        <visual>
+            <origin xyz="0.16 -0.04 0.078" rpy="0 2.0944 0"/>   <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <cylinder radius="0.015" length="0.183"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="0.16 -0.04 0.078" rpy="0 2.0944 0"/>
+            <geometry>
+                <cylinder radius="0.015" length="0.183"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" radius="0.015" length="0.183">
+            <origin xyz="0.16 -0.04 0.078" rpy="0 2.0944 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="left_suspensi_satu">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- Right Suspensi 1 LINK -->
+
+    <joint name="right_suspensi_satu_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_suspensi_satu"/>
+        <origin xyz="0 -0.175 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_suspensi_satu">
+        <visual>
+            <origin xyz="0.16 0.04 0.077" rpy="0 2.0944 0"/>   <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <cylinder radius="0.015" length="0.183"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="0.16 0.04 0.077" rpy="0 2.0944 0"/>
+            <geometry>
+                <cylinder radius="0.015" length="0.183"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" radius="0.015" length="0.183">
+            <origin xyz="0.16 0.04 0.077" rpy="0 2.0944 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="right_suspensi_satu">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- Left Suspensi 2 LINK -->
+
+    <joint name="left_suspensi_dua_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_suspensi_dua"/>
+        <origin xyz="0 0.175 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="left_suspensi_dua">
+        <visual>
+            <origin xyz="-0.018 -0.04 0.1025" rpy="0 1.0472 0"/>   <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <cylinder radius="0.015" length="0.085"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.018 -0.04 0.1025" rpy="0 1.0472 0"/>
+            <geometry>
+                <cylinder radius="0.015" length="0.085"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" radius="0.015" length="0.085">
+            <origin xyz="-0.018 -0.04 0.1025" rpy="0 1.0472 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="left_suspensi_dua">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- Right Suspensi 2 LINK -->
+
+    <joint name="right_suspensi_dua_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_suspensi_dua"/>
+        <origin xyz="0 -0.175 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_suspensi_dua">
+        <visual>
+            <origin xyz="-0.018 0.04 0.1025" rpy="0 1.0472 0"/>   <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <cylinder radius="0.015" length="0.085"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.018 0.04 0.1025" rpy="0 1.0472 0"/>
+            <geometry>
+                <cylinder radius="0.015" length="0.085"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" radius="0.015" length="0.085">
+            <origin xyz="-0.018 0.04 0.1025" rpy="0 1.0472 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="right_suspensi_dua">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- Left Mount Bawah LINK -->
+
+   <joint name="left_mount_bawah_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_mount_bawah"/>
+        <origin xyz="0 0.175 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="left_mount_bawah">
+        <visual>
+            <origin xyz="-0.075 -0.02 0.07" rpy="0 0 1.5708"/> <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <box size="0.07 0.06 0.038"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.075 -0.02 0.07" rpy="0 0 1.5708"/>
+            <geometry>
+                <box size="0.07 0.06 0.038"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.1" x="0.07" y="0.06" z="0.038">
+            <origin xyz="-0.075 -0.02 0.07" rpy="0 0 1.5708"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="left_mount_bawah">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <!-- Right Mount Bawah LINK -->
+
+    <joint name="right_mount_bawah_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_mount_bawah"/>
+        <origin xyz="0 -0.175 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_mount_bawah">
+        <visual>
+            <origin xyz="-0.075 0.02 0.07" rpy="0 0 1.5708"/> <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <box size="0.07 0.06 0.038"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.075 0.02 0.07" rpy="0 0 1.5708"/>
+            <geometry>
+                <box size="0.07 0.06 0.038"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.1" x="0.07" y="0.06" z="0.038">
+            <origin xyz="-0.075 0.02 0.07" rpy="0 0 1.5708"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="right_mount_bawah">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <!-- Left Suspensi 3 LINK -->
+
+    <joint name="left_suspensi_tiga_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_suspensi_tiga"/>
+        <origin xyz="0 0.175 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="left_suspensi_tiga">
+        <visual>
+            <origin xyz="-0.0225 -0.005 0.05" rpy="0 2.0944 0"/>   <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <cylinder radius="0.015" length="0.071"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.0225 -0.005 0.05" rpy="0 2.0944 0"/>
+            <geometry>
+                <cylinder radius="0.015" length="0.071"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" radius="0.015" length="0.071">
+            <origin xyz="-0.0225 -0.005 0.05" rpy="0 2.0944 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="left_suspensi_tiga">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- Right Suspensi 3 LINK -->
+
+    <joint name="right_suspensi_tiga_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_suspensi_tiga"/>
+        <origin xyz="0 -0.175 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_suspensi_tiga">
+        <visual>
+            <origin xyz="-0.0225 0.005 0.05" rpy="0 2.0944 0"/>   <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <cylinder radius="0.015" length="0.071"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.0225 0.005 0.05" rpy="0 2.0944 0"/>
+            <geometry>
+                <cylinder radius="0.015" length="0.071"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" radius="0.015" length="0.071">
+            <origin xyz="-0.0225 0.005 0.05" rpy="0 2.0944 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="right_suspensi_tiga">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- Left Suspensi 4 LINK -->
+
+    <joint name="left_suspensi_empat_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_suspensi_empat"/>
+        <origin xyz="0 0.175 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="left_suspensi_empat">
+        <visual>
+            <origin xyz="-0.125 -0.005 0.05" rpy="0 1.0472 0"/>   <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <cylinder radius="0.015" length="0.071"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.125 -0.005 0.05" rpy="0 1.0472 0"/>
+            <geometry>
+                <cylinder radius="0.015" length="0.071"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" radius="0.015" length="0.071">
+            <origin xyz="-0.125 -0.005 0.05" rpy="0 1.0472 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="left_suspensi_empat">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- Right Suspensi 4 LINK -->
+
+    <joint name="right_suspensi_empat_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_suspensi_empat"/>
+        <origin xyz="0 -0.175 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_suspensi_empat">
+        <visual>
+            <origin xyz="-0.125 0.005 0.05" rpy="0 1.0472 0"/>   <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <cylinder radius="0.015" length="0.071"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.125 0.005 0.05" rpy="0 1.0472 0"/>
+            <geometry>
+                <cylinder radius="0.015" length="0.071"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" radius="0.015" length="0.071">
+            <origin xyz="-0.125 0.005 0.05" rpy="0 1.0472 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="right_suspensi_empat">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- Left Mount motor Belakang LINK -->
+
+    <joint name="left_mount_motor_belakang_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_mount_motor_belakang"/>
+        <origin xyz="0 0.175 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="left_mount_motor_belakang">
+        <visual>
+            <origin xyz="0.25 -0.04 0.005"/> <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <box size="0.0545 0.0348 0.135211"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0.25 -0.04 0.005"/>
+            <geometry>
+                <box size="0.0545 0.0348 0.135211"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.1" x="0.0545" y="0.0348" z="0.0135211">
+            <origin xyz="0.25 -0.04 0.005" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="left_mount_motor_belakang">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <!-- Right Mount motor Belakang LINK -->
+
+    <joint name="right_mount_motor_belakang_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_mount_motor_belakang"/>
+        <origin xyz="0 -0.175 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_mount_motor_belakang">
+        <visual>
+            <origin xyz="0.25 0.04 0.005"/> <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <box size="0.0545 0.0348 0.135211"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0.25 0.04 0.005"/>
+            <geometry>
+                <box size="0.0545 0.0348 0.135211"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.1" x="0.0545" y="0.0348" z="0.0135211">
+            <origin xyz="0.25 0.04 0.005" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="right_mount_motor_belakang">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <!-- Left Mount motor Tengah LINK -->
+
+    <joint name="left_mount_motor_tengah_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_mount_motor_tengah"/>
+        <origin xyz="0 0.175 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="left_mount_motor_tengah">
+        <visual>
+            <origin xyz="0.03 -0.005 0.005"/> <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <box size="0.0545 0.0348 0.135211"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0.03 -0.005 0.005"/>
+            <geometry>
+                <box size="0.0545 0.0348 0.135211"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.1" x="0.0545" y="0.0348" z="0.0135211">
+            <origin xyz="0.03 -0.005 0.005" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="left_mount_motor_tengah">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <!-- Right Mount motor Tengah LINK -->
+
+    <joint name="right_mount_motor_tengah_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_mount_motor_tengah"/>
+        <origin xyz="0 -0.175 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_mount_motor_tengah">
+        <visual>
+            <origin xyz="0.03 0.005 0.005"/> <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <box size="0.0545 0.0348 0.135211"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0.03 0.005 0.005"/>
+            <geometry>
+                <box size="0.0545 0.0348 0.135211"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.1" x="0.0545" y="0.0348" z="0.0135211">
+            <origin xyz="0.03 0.005 0.005" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="right_mount_motor_tengah">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <!-- Left Mount motor Depan LINK -->
+
+    <joint name="left_mount_motor_depan_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_mount_motor_depan"/>
+        <origin xyz="0 0.175 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="left_mount_motor_depan">
+        <visual>
+            <origin xyz="-0.175 -0.005 0.005"/> <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <box size="0.0545 0.0348 0.135211"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.175 -0.005 0.005"/>
+            <geometry>
+                <box size="0.0545 0.0348 0.135211"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.1" x="0.0545" y="0.0348" z="0.0135211">
+            <origin xyz="-0.175 -0.005 0.005" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="left_mount_motor_depan">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <!-- Right Mount motor Depan LINK -->
+
+    <joint name="right_mount_motor_depan_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_mount_motor_depan"/>
+        <origin xyz="0 -0.175 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_mount_motor_depan">
+        <visual>
+            <origin xyz="-0.175 0.005 0.005"/> <!-- x (menentukan kiri dan kanan) y(menentukan samping) z(menentukan ketinggian)-->
+            <geometry>
+                <box size="0.0545 0.0348 0.135211"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.175 0.005 0.005"/>
+            <geometry>
+                <box size="0.0545 0.0348 0.135211"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.1" x="0.0545" y="0.0348" z="0.0135211">
+            <origin xyz="-0.175 0.005 0.005" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="right_mount_motor_depan">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <!-- LEFT WHEEL Depan LINK -->
+
+    <joint name="left_wheel_Depan_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_wheel_depan"/>
+        <origin xyz="0.25 0.17 -0.05" rpy="-${pi/2} 0 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="left_wheel_depan">
+        <visual>
+            <geometry>
+                <cylinder radius="0.0405" length="0.038"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.0405" length="0.038"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" length="0.038" radius="0.0405">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="left_wheel_depan">
+        <material>Gazebo/Blue</material>
+        <mu1 value="0.001"/>
+        <mu2 value="0.001"/>
+    </gazebo>
+
+    <!-- Right WHEEL Depan LINK -->
+
+    <joint name="right_wheel_Depan_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_wheel_depan"/>
+        <origin xyz="0.25 -0.17 -0.05" rpy="-${pi/2} 0 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_wheel_depan">
+        <visual>
+            <geometry>
+                <cylinder radius="0.0405" length="0.038"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.0405" length="0.038"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" length="0.038" radius="0.0405">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="right_wheel_depan">
+        <material>Gazebo/Blue</material>
+        <mu1 value="0.001"/>
+        <mu2 value="0.001"/>
+    </gazebo>
+
+    <!-- LEFT WHEEL Tengah LINK -->
+
+    <joint name="left_wheel_Tengah_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="left_wheel_tengah"/>
+        <origin xyz="0.03 0.205 -0.05" rpy="-${pi/2} 0 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="left_wheel_tengah">
+        <visual>
+            <geometry>
+                <cylinder radius="0.0405" length="0.038"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.0405" length="0.038"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" length="0.038" radius="0.0405">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="left_wheel_tengah">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <!-- RIGHT WHEEL Tengah LINK -->
+
+    <joint name="right_wheel_Tengah_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="right_wheel_tengah"/>
+        <origin xyz="0.03 -0.205 -0.05" rpy="${pi/2} 0 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_wheel_tengah">
+        <visual>
+            <geometry>
+                <cylinder radius="0.0405" length="0.038"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.0405" length="0.038"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" length="0.038" radius="0.0405">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="right_wheel_tengah">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <!-- LEFT WHEEL Belakang LINK -->
+
+    <joint name="left_wheel_Belakang_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_wheel_belakang"/>
+        <origin xyz="-0.175 0.205 -0.05" rpy="-${pi/2} 0 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="left_wheel_belakang">
+        <visual>
+            <geometry>
+                <cylinder radius="0.0405" length="0.038"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.0405" length="0.038"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" length="0.038" radius="0.0405">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="left_wheel_belakang">
+        <material>Gazebo/Blue</material>
+        <mu1 value="0.001"/>
+        <mu2 value="0.001"/>
+    </gazebo>
+
+    <!-- Right WHEEL Belakang LINK -->
+
+    <joint name="right_wheel_Belakang_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_wheel_belakang"/>
+        <origin xyz="-0.175 -0.205 -0.05" rpy="-${pi/2} 0 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_wheel_belakang">
+        <visual>
+            <geometry>
+                <cylinder radius="0.0405" length="0.038"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.0405" length="0.038"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" length="0.038" radius="0.0405">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="right_wheel_belakang">
+        <material>Gazebo/Blue</material>
+        <mu1 value="0.001"/>
+        <mu2 value="0.001"/>
+    </gazebo>
+
+
+
+</robot>
